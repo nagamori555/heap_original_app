@@ -9,7 +9,7 @@
       <div class="row g-0">
         <div class="col-md-7">
           <% if @user.image.attached? %>
-            <%= image_tag user.image, class: "item-img-s img-thumbnail" %>
+            <%= image_tag @user.image, class: "item-img-s img-thumbnail" %>
           <% else %>
             <%= image_tag 'default_icon.png', class: 'item-img-s img-thumbnail' %>
           <%end%>
