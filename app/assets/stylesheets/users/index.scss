@@ -1,0 +1,53 @@
+/* 画面上部帯部分 */
+.title-contents {
+  width: 100vw;
+  background-image: image-url('falldown.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10vh 15vw;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+}
+
+.service-title {
+  font-size: 8vh;
+  color: whitesmoke;
+}
+
+.service-explain {
+  font-size: 3.5vh;
+  line-height: 40px;
+}
+
+/* ユーザー一覧 */
+.item-img {
+  width: 220px;
+  height: 200px;
+}
+.main{
+  background-color:azure;
+}
+.user-contents {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10vh 0;
+}
+
+.user-contents>.title {
+  font-size: 5vh;
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+.page{
+  display: flex;
+  justify-content: center;
+}
+

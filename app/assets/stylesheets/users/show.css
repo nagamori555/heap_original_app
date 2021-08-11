@@ -1,0 +1,12 @@
+.profile{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.item-img-s{
+  width: 280px;
+  height: 250px;
+}
+.card-body{
+  font-weight: bold;
+}

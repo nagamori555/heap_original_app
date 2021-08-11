@@ -1,0 +1,73 @@
+<%= render "shared/header" %>
+  <div class="items-contents">
+    <div class="container">
+      <h2>
+        <%= "#{@user.nickname}さんの閲覧作品検索"%>
+      </h2>
+      <%= search_form_for @p, url: search_user_items_path(@user.id) do |f| %>
+      <table class="detail-table">
+        <tbody>
+          <tr>
+            <th class="detail-item"><%= f.label :title_eq, '作品名' %></th>
+            <td class="detail-value"><%= f.collection_select :title_eq, @item_name, :title, :title,  include_blank: '指定なし' %></td>
+          </tr>
+          <tr>
+            <th class="detail-item"><%= f.label :media_id_eq, '視聴メディア' %></th>
+            <td class="detail-value"><%= f.collection_select :media_id_eq, @medium, :id, :name,  include_blank: '指定なし' %></td>
+          </tr>
+          <tr>
+            <th class="detail-item"><%= f.label :genre_id_eq, 'ジャンル' %></th>
+            <td class="detail-value"><%= f.collection_select :genre_id_eq, @genres, :id, :name,  include_blank: '指定なし' %></td>
+          </tr>
+          <tr>
+            <th class="detail-item"><%= f.label :preference_id_eq, '評価' %></th>
+            <td class="detail-value"><%= f.collection_select :preference_id_eq, @preferences, :id, :name,  include_blank: '指定なし' %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="search">
+      <%= f.submit '検索' %>
+      </div>
+      <% end %>
+      <div class="item-index">
+        <h2>全作品</h2>
+      </div>
+        <% if @items.length > 0%>
+        <div class="row">
+          <% @items.each do |item|%>
+            <div class="col-sm-6 col-md-3">
+              <%= link_to item_path(item.id) do %>
+                <div class="card bg-dark text-white mt-3" style="width: 14rem; height:12rem;">
+                  <% if item.image.attached? %>
+                    <%= image_tag item.image, class: "card-img-top img-thumbnail index-item-img" %>
+                  <% else %>
+                    <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail index-item-img' %>
+                  <%end%>
+                  <div class="card-img-overlay">
+                    <h3 class="card-title"><%= item.title%></h3>
+                    <p class="card-text"><%= item.media.name%></p>
+                    <p class="card-text"><%= item.genre.name%></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <%end%>
+        </div>
+        <%else%>
+          <h2>表示できる作品がありません</h2>
+        <%end%>
+    </div>
+    <div class="mt-5">
+      <%= paginate @items %> 
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+    </div>
+
+    <footer class="items-footer">
+      <%= link_to image_tag('secondheader_logo.png' , size: '185x80'), "/" %>
+      <p class="inc">
+        ©︎Heap,Inc.
+      </p>
+    </footer>
+  </div>

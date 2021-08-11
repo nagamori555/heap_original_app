@@ -1,0 +1,24 @@
+<div class="container">
+  <div class= "row">
+    <div class="col-md-7">
+      <%= image_tag "top_image.png", class:"img-fluid" %>
+    </div>
+    <div class="col-md-5 mt-1">
+      <%= image_tag "heap_logo.png", class:"img-fluid image_logo" %>
+
+      <div class="sentence1">
+        <h1 class="display-1">サブカルに強くなる！</h1>
+      </div>
+      <div class="sentence2">
+        <h2 class="display-3">HEAPを始める</h2>
+      </div>
+      <div>
+        <%= link_to new_user_registration_path do%>
+          <button class="btn btn-primary btn-lg w-100 mt-3" type="button">アカウント作成</button>
+        <%end%>
+        <%= link_to new_user_session_path do %>
+          <button class="btn btn-warning btn-lg w-100 mt-5" type="button">ログイン</button>
+        <%end%>
+      </div>
+  </div>
+</div>

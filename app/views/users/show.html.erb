@@ -1,0 +1,161 @@
+<%= render "shared/header" %>
+<div class="items-sell-contents">
+  <div class="container">
+  <div>
+    <h1><%="#{@user.nickname}さんの詳細ページ"%></h1>
+  </div>
+  <div class="row">
+    <div class="card mb-3 mt-5 profile" style="width: 40rem;">
+      <div class="row g-0">
+        <div class="col-md-7">
+          <%= image_tag @user.image, class: "item-img-s img-thumbnail" %>
+        </div>
+        <div class="col-md-5">
+          <div class="card-body mt-4 me-5" >
+            <h5 class="card-title">Lv：<%= @status.level %></h5>
+            <p class="card-text">次のレベルまで：<%= @next_level %></p>
+            <%= link_to user_items_path(@user.id), class: "category-list" do %>
+            <span>総閲覧作品数：<%= @items.length %></span><br>
+            <% end %>
+            <%= link_to user_follows_path(@user.id), class: "category-list" do %>
+              <span>フォロー数：<%= @user.follower.count %></span><br>
+            <% end %>
+            <%= link_to user_followers_path(@user.id), class: "category-list" do %>
+              <span>フォロワー数：<%= @user.followed.count %> </span><br>
+            <% end %>
+            <% if current_user == @user %>
+              <%= link_to user_likes_path(@user.id), class: "category-list" do %>
+                <span>気になる作品一覧：<%= @user.likes.count %> </span>
+              <% end %>
+            <%end%>
+            <% if current_user != @user %>
+              <% if current_user.following?(@user) %>
+                <%= link_to 'フォロー外す', user_relationship_path(@user.id, @user), method: :delete, class: "btn btn-danger" %>
+              <% else %>
+                <%= link_to 'フォローする', user_relationships_path(@user.id), method: :POST , class: "btn btn-primary"%>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-1">
+      </div>
+      <div class="col-9 align-self-center">
+          <canvas id="myPieChart"></canvas>
+          <script>
+            var ctx = document.getElementById("myPieChart");
+            var myPieChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: ["漫画", "アニメ", "ドラマ", "映画", "小説"],
+                datasets: [{
+                    backgroundColor: [
+                        "#BB5179",
+                        "#FAFF67",
+                        "#58A27C",
+                        "#3C00FF",
+                        "#ff1493"
+                    ],
+                    data: [<%=@category1.count%>, <%=@category2.count%>, <%=@category3.count%>, <%=@category4.count%>, <%=@category5.count%>]
+                }]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: '閲覧メディア 割合'
+                }
+              }
+            });
+          </script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1">
+      </div>
+      <div class="col-9">
+        <canvas id="myBarChart"></canvas>
+        <script>
+          var ctx = document.getElementById("myBarChart");
+          var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['学園・青春', 'ギャグ・コメディ', 'ヒューマン', '格闘・バトル', '異世界・ファンタジー', 'SF', 'ホラー','恋愛', 'スポーツ', '音楽','料理・グルメ', '推理・ミステリー', 'ギャンブル', 'ヤンキー', '冒険', '歴史・時代劇'],
+              datasets: [
+                {
+                  label: 'ジャンル別閲覧数',
+                  data: [<%=@genre1.count%>, <%=@genre2.count%>, <%=@genre3.count%>,<%=@genre4.count%>,
+                         <%=@genre5.count%>, <%=@genre6.count%>, <%=@genre7.count%>, <%=@genre8.count%>,
+                         <%=@genre9.count%>, <%=@genre10.count%>, <%=@genre11.count%>, <%=@genre12.count%>, <%=@genre13.count%>,
+                         <%=@genre14.count%>, <%=@genre15.count%>, <%=@genre16.count%>],
+                  backgroundColor: "rgba(219,39,91,0.5)"
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: '閲覧'
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMax: 100,
+                    suggestedMin: 0,
+                    stepSize: 10,
+                    callback: function(value, index, values){
+                      return  value +  '本'
+                    }
+                  }
+                }]
+              },
+            }
+          });
+        </script>
+      </div>
+    </div>
+
+    <div class="row">
+      <canvas id="myChart"></canvas>
+      <script>
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: ["知力", "ユーモア", "勇気", "思いやり","運","決断力"],
+            datasets: 
+            [
+                {
+                label: '能力値',
+                backgroundColor: 'rgba(102,255,129,0.2)',
+                borderColor: 'rgba(122,255,129,0.2)',
+                data: [<%= @status.inteligence %>, <%= @status.humor%>, <%= @status.courage%>, <%= @status.consideration%>,<%= @status.luck%>,<%= @status.decisiveness%>]
+                }
+            ]
+          },
+          options: {
+              scale: {
+                  ticks: {
+                      suggestedMin: 0,
+                      suggestedMax: 100
+                  }
+              }
+          }
+        });
+      </script>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <%= link_to '戻る', root_path, class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+    </div>
+  </div>
+  
+  <footer class="items-sell-footer">
+    <div class='footer'>
+      <%= link_to image_tag("white_logo.png", class:"logo-white"), "#" %>
+      <p>© HEAP</p>
+    </div>
+  </footer>
+</div>

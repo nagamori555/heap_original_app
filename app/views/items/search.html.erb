@@ -1,0 +1,37 @@
+<%= render "shared/header" %>
+<div class="container">
+  <h1>
+    検索結果
+  </h1>
+  <% if @results.length !=0 %>
+    <div class="row">
+      <% @results.each do |item| %>
+        <div class="col-sm-6 col-md-3">
+          <%= link_to item_path(item.id) do %>
+            <div class="card bg-dark text-white mt-3" style="width: 14rem; height:12rem;">
+              <% if item.image.attached? %>
+                <%= image_tag item.image, class: "card-img-top img-thumbnail index-item-img" %>
+              <% else %>
+                <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail index-item-img' %>
+              <%end%>
+              <div class="card-img-overlay">
+                <h3 class="card-title"><%= item.title%></h3>
+                <p class="card-text"><%= item.media.name%></p>
+                <p class="card-text"><%= item.genre.name%></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <%end%>
+    </div>
+  <% else %>
+    <h2>該当する作品はありません</h2>
+  <% end %>
+  <div class="mt-5 page">
+    <%= paginate @results %> 
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+  </div>
+</div>
+<%= render "shared/second-footer" %>

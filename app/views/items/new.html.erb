@@ -1,0 +1,82 @@
+<div class="items-contents">
+  <header class="items-header">
+    <%= link_to image_tag('secondheader_logo.png' , size: '185x80'), "/" %>
+
+  </header>
+  <div class="items-main">
+    <h2 class="items-title">作品の情報を入力</h2>
+    <%= form_with model: @item, local: true do |f| %>
+
+    <%= render 'shared/error_messages', model: f.object %>
+    
+
+    <%# 作品画像 %>
+    <div class="img-upload">
+      <div class="weight-bold-text">
+        作品画像
+        <span class="indispensable">任意</span>
+      </div>
+      <div class="click-upload">
+        <p>
+          クリックしてファイルをアップロード
+        </p>
+        <%= f.file_field :image, id:"item-image" %>
+      </div>
+    </div>
+    <%# /作品画像画像 %>
+    <%# 作品名と作品説明 %>
+    <div class="new-items">
+      <div class="weight-bold-text">
+        作品名
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :title, class:"items-text", id:"item-name", placeholder:"作品名（必須 40文字まで)", maxlength:"40" %>
+      <div class="items-explain">
+        <div class="weight-bold-text">
+          作品の説明及び感想など
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_area :description, class:"items-text", id:"item-info", placeholder:"作品の説明（必須 1,000文字まで）（感想など）" ,rows:"7" ,maxlength:"1000" %>
+      </div>
+    </div>
+    <%# /作品名と作品説明 %>
+
+    <%# 作品の詳細 %>
+    <div class="items-detail">
+      <div class="weight-bold-text">作品について</div>
+      <div class="form">
+        <div class="weight-bold-text">
+          作品の媒体
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.collection_select(:media_id, Media.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
+        <div class="weight-bold-text">
+          作品のジャンル
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
+        <div class="weight-bold-text">
+          作品の印象
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.collection_select(:preference_id, Preference.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
+      </div>
+    </div>
+    <%# /作品の詳細 %>
+    
+    <%# 下部ボタン %>
+    <div class="btn-contents">
+      <%= f.submit "登録する" ,class:"reg-btn" %>
+      <%=link_to 'もどる', root_path, class:"back-btn" %>
+    </div>
+    <%# /下部ボタン %>
+  </div>
+  <% end %>
+
+  <footer class="items-footer">
+    <%= link_to image_tag('secondheader_logo.png' , size: '185x80'), "/" %>
+    <p class="inc">
+      ©︎Heap,Inc.
+    </p>
+  </footer>
+</div>

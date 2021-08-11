@@ -1,0 +1,46 @@
+<%= render "shared/header" %>
+<div class="container">
+<div>
+  <h1><%="#{@user.nickname}さんのフォロワー"%></h1>
+</div>
+<% if @users.length > 0%>
+  <div class="row">
+    <% @users.each do |user|%>
+      <% if user_signed_in?%>
+        <div class="col-sm-6 col-md-3">
+          <div class="card mt-2" style="width: 14rem; height: 23rem;">
+            <%= link_to user_path(user.id) do %>
+              <div class='item-img-content'>
+              <% if user.image.attached? %>
+                <%= image_tag user.image, class: "card-img-top img-thumbnail item-img" %>
+              <% else %>
+                <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail item-img' %>
+              <%end%>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">名前：<%= user.nickname%></h5>
+                <p class="card-text">Lv.<%= user.status.level%></p>
+                <p class="card-text" style="line-height:0.5rem;">閲覧作品数：<%= user.items.count%></p>
+                <p>
+                  <div id = "follow-button_#<%= user.id %>">
+                    <%= render partial: "users/follow-button", locals: { user: user } %>
+                  </div>
+                </p>
+              </div>
+            <%end%>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<%else%>
+  <h2>表示できるユーザーがいません</h2>
+<%end%>
+  <div class="mt-5 page">
+    <%= paginate @users %> 
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+  </div>
+</div>
+    <%= render "shared/second-footer" %>

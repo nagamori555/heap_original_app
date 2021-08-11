@@ -1,0 +1,36 @@
+<%= render "shared/header" %>
+<div class="container">
+  <h2><%="#{@user.nickname}さんの気になる作品"%></h2>
+      <% if @likes.length > 0%>
+      <div class="row">
+        <% @likes.each do |like|%>
+          <div class="col-sm-6 col-md-3">
+            <%= link_to item_path(like.item.id) do %>
+              <div class="card bg-dark text-white mt-3" style="width: 14rem; height:12rem;">
+                <% if like.item.image.attached? %>
+                  <%= image_tag like.item.image, class: "card-img-top img-thumbnail index-item-img" %>
+                <% else %>
+                  <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail index-item-img' %>
+                <%end%>
+                <div class="card-img-overlay">
+                  <h3 class="card-title"><%= like.item.title%></h3>
+                  <p class="card-text"><%= like.item.media.name%></p>
+                  <p class="card-text"><%= like.item.genre.name%></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <%end%>
+      </div>
+      <%else%>
+        <h2>表示できる作品がありません</h2>
+      <%end%>
+    </div>
+    <div class="mt-5 page">
+      <%= paginate @likes %> 
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+    </div>
+</div>
+    <%= render "shared/second-footer" %>

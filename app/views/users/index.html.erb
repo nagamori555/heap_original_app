@@ -1,0 +1,62 @@
+<%= render "shared/header" %>
+<div class='main'>
+  <%# 画面上部帯部分 %>
+  <div class='title-contents'>
+    <h2 class='service-title'>
+      好きを積み上げるアーカイブアプリ
+    </h2>
+    <p class='service-explain'>
+      HEAPで沢山の好きを重ねて話題に強くなろう
+    </p>
+    <p class='service-explain'>
+      他のユーザーがどんな作品をみているか覗いてみよう
+    </p>
+  </div>
+  <%# /画面上部帯部分  %>
+
+  <%# ユーザー一覧 %>
+  <div class='user-contents'>
+    <h2 class='title'>ユーザー一覧</h2>
+    <div class="container">
+      <div class="row">
+        <% @users.each do |user|%>
+          <% if user_signed_in? && current_user.id != user.id %>
+            <div class="col-sm-6 col-md-3">
+              <div class="card mt-2" style="width: 14rem; height: 23rem;">
+                <%= link_to user_path(user.id) do %>
+                  <div class='item-img-content'>
+                    <% if user.image.attached? %>
+                      <%= image_tag user.image, class: "card-img-top img-thumbnail item-img" %>
+                    <% else %>
+                      <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail item-img' %>
+                    <%end%>
+                  </div>
+                <div class="card-body">
+                  <h5 class="card-title">名前：<%= user.nickname%></h5>
+                  <p class="card-text">Lv.<%= user.status.level%></p>
+                  <p class="card-text" style="line-height:0.5rem;">閲覧作品数：<%= user.items.count%></p>
+                  <p>
+                    <div id = "follow-button_#<%= user.id %>">
+                      <%= render partial: "users/follow-button", locals: { user: user } %>
+                    </div>
+                  </p>
+                </div>
+                <%end%>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%# /ユーザー一覧 %>
+  <div class="page">
+    <%= paginate @users %> 
+  </div>
+</div>
+  
+<%= link_to(new_item_path, class: 'purchase-btn') do %>
+  <span class='purchase-btn-text'>登録</span>
+  <%= image_tag 'up_logo.png' , size: '140x80' ,class: "purchase-btn-icon" %>
+<% end %>
+<%= render "shared/footer" %>

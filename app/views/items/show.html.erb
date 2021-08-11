@@ -1,0 +1,60 @@
+<%= render "shared/header" %>
+<div class="items-contents">
+    <div class="container">
+      <div class="row" >
+        <div class="item-show">
+          <div class="item-box">
+            <h2 class="name">
+              <%= @item.title %>
+            </h2>
+            <div class="item-img-content">
+              <% if @item.image.attached? %>
+                <%= image_tag @item.image, class: "card-img-top img-thumbnail item-img" %>
+              <% else %>
+                <%= image_tag 'default_icon.png', class: 'card-img-top img-thumbnail item-img' %>
+              <%end%>
+            </div>
+            <% if user_signed_in? %>
+              <% if current_user.id == @item.user.id %>
+                <%= link_to "登録作品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+                <p class="or-text">or</p>
+                <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+              <% end %>
+            <% end %>
+
+            <table class="detail-table">
+              <tbody>
+                <tr>
+                  <th class="detail-item">投稿者</th>
+                  <td class="detail-value"><%= @item.user.nickname %></td>
+                </tr>
+                <tr>
+                  <th class="detail-item">閲覧メディア</th>
+                  <td class="detail-value"><%= @item.media.name %></td>
+                </tr>
+                <tr>
+                  <th class="detail-item">作品ジャンル</th>
+                  <td class="detail-value"><%= @item.genre.name %></td>
+                </tr>
+                <tr>
+                  <th class="detail-item">投稿者の感想</th>
+                  <td class="detail-value"><%= @item.description %></td>
+                </tr>
+                <tr>
+                  <th class="detail-item">投稿者の好み</th>
+                  <td class="detail-value"><%= @item.preference.name %></td>
+                </tr>
+                <tr>
+                  <th class="detail-item">気になる</th>
+                  <td id="item_<%= @item.id %>" class="detail-value"><%= render partial: "likes/like", locals: { item: @item } %></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <%= link_to '戻る', 'javascript:history.back()', class: "btn btn-outline-secondary btn-lg mt-4 mb-3" %>
+            </div>
+          </div>
+      </div> 
+    </div>
+</div>
+ <%= render "shared/second-footer" %>

@@ -1,0 +1,2 @@
+class Leveltable < ApplicationRecord
+end
