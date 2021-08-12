@@ -69,11 +69,6 @@
 
  
 # 洗い出した要件定義
-| 優先順位             | 機能   | 目的        | 詳細             | 機能   | 目的           
-| ------------------ | ------ | ----------- | ------------------ | ------ | ----------- |
-| name               | string | null: false |name               | string | null: false |
-| email              | string | null: false |name               | string | null: false |
-| encrypted_password | string | null: false |name               | string | null: false |
  
  優先順位（高：3、中：2、低：1） | 機能 | 目的 | 詳細 | ストーリー(ユースケース) | 見積もり（所要時間）
 -- | -- | -- | -- | -- | --
@@ -87,19 +82,24 @@
 
 
  
-# Author
+# 実装した機能
+- マイページに設けた作品閲覧分析とステータス
+ [![Image from Gyazo](https://i.gyazo.com/71972d3980ca8864c6cb9ef8debe7217.gif)](https://gyazo.com/71972d3980ca8864c6cb9ef8debe7217)
+
+- 他ユーザーの投稿作品へ対する気になる機能
+[![Image from Gyazo](https://i.gyazo.com/314bb65e1eee069e4eb95993cfa5199c.gif)](https://gyazo.com/314bb65e1eee069e4eb95993cfa5199c)
  
-作成情報を列挙する
- 
-* 作成者
-* 所属
-* E-mail
- 
-# License
-ライセンスを明示する
- 
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
- 
-社内向けなら社外秘であることを明示してる
- 
-"hoge" is Confidential.
+# 実装予定の機能
+  フォローしあっているユーザー同士がコミュニケーションが取れるようなチャット機能
+  フォロー、気になるボタンの非同期通信
+
+# データベース設計図
+  [![Image from Gyazo](https://i.gyazo.com/b628ad4434308a2d69c9e513b3763962.png)](https://gyazo.com/b628ad4434308a2d69c9e513b3763962)
+
+# ローカルでの動作方法
+ - バージョン情報
+  ruby 2.6.5
+  Rails 6.0.4
+ - 注意点
+  rails db:migrate後に、rails db:seedを実施
+  leveltableに経験値の閾値を入力するため。
