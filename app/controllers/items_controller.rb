@@ -96,7 +96,7 @@ class ItemsController < ApplicationController
 
   def accumulate_exp
     if @item.media.id == 6
-      exp = 5
+      exp = 10
     elsif @item.media.id == 5
       exp = 4
     elsif @item.media.id == 2 || @item.media.id == 3 || @item.media.id == 4
